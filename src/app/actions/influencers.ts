@@ -79,6 +79,15 @@ function rowToPending(row: CreatorLeadRow): PendingInfluencer {
   };
 }
 
+/**
+ * Sanitize user search input for use in a PostgREST `.or()` filter string.
+ * Removes characters that have meaning in the filter syntax (`,`, `(`, `)`, `.`)
+ * and the SQL `LIKE` wildcards (`%`, `_`).
+ */
+function sanitizeSearch(search: string): string {
+  return search.replace(/[%_,().]/g, " ").trim();
+}
+
 function buildFollowerUpdates(
   followers: FollowerCounts,
 ): Record<string, number | null> {
@@ -98,11 +107,19 @@ function buildFollowerUpdates(
 export async function fetchVerifiedInfluencers({
   offset,
   limit,
+  search,
 }: PageQuery): Promise<PageResult<Influencer>> {
-  const { data, count, error } = await getSupabaseAdmin()
+  let query = getSupabaseAdmin()
     .from("creator_leads")
     .select(SELECT_COLS, { count: "exact" })
-    .eq("is_approved", true)
+    .eq("is_approved", true);
+
+  const safe = search ? sanitizeSearch(search) : "";
+  if (safe) {
+    query = query.or(`name.ilike.%${safe}%,email.ilike.%${safe}%`);
+  }
+
+  const { data, count, error } = await query
     .order("created_at", { ascending: false })
     .range(offset, offset + limit - 1);
 
@@ -117,11 +134,19 @@ export async function fetchVerifiedInfluencers({
 export async function fetchPendingInfluencers({
   offset,
   limit,
+  search,
 }: PageQuery): Promise<PageResult<PendingInfluencer>> {
-  const { data, count, error } = await getSupabaseAdmin()
+  let query = getSupabaseAdmin()
     .from("creator_leads")
     .select(SELECT_COLS, { count: "exact" })
-    .eq("is_approved", false)
+    .eq("is_approved", false);
+
+  const safe = search ? sanitizeSearch(search) : "";
+  if (safe) {
+    query = query.or(`name.ilike.%${safe}%,email.ilike.%${safe}%`);
+  }
+
+  const { data, count, error } = await query
     .order("created_at", { ascending: true })
     .range(offset, offset + limit - 1);
 

@@ -22,6 +22,8 @@ export type PendingInfluencer = {
 export type PageQuery = {
   offset: number;
   limit: number;
+  /** Trimmed search query; matched against name and email (case-insensitive). */
+  search?: string;
 };
 
 export type PageResult<T> = {
