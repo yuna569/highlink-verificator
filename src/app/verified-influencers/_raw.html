@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "surface": "#f9f9f9",
+                        "on-primary-fixed": "#1c1b1b",
+                        "surface-container-low": "#f3f3f3",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-background": "#1b1b1b",
+                        "status-blue": "#007aff",
+                        "on-secondary-fixed": "#002113",
+                        "surface-container-high": "#e8e8e8",
+                        "outline-variant": "#cfc4c5",
+                        "on-secondary-container": "#10714c",
+                        "inverse-primary": "#c8c6c5",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "surface-bright": "#f9f9f9",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-surface": "#1b1b1b",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-primary-container": "#858383",
+                        "primary": "#000000",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-elevated": "#ffffff",
+                        "status-red": "#ba1a1a",
+                        "surface-canvas": "#f7f7f4",
+                        "tertiary-container": "#1b1b1b",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#4c4546",
+                        "charcoal": "#111111",
+                        "surface-variant": "#e2e2e2",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "status-amber": "#f59e0b",
+                        "sage-green": "#1f7a55",
+                        "surface-tint": "#5f5e5e",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "secondary-container": "#9bf1c4",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#1c1b1b",
+                        "border-subtle": "#d9d7cf",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#eeeeee",
+                        "inverse-surface": "#303030",
+                        "on-tertiary-container": "#848484",
+                        "secondary-fixed": "#9ef4c6",
+                        "secondary": "#056c48",
+                        "secondary-fixed-dim": "#82d8ab",
+                        "error": "#ba1a1a",
+                        "tertiary": "#000000",
+                        "background": "#f9f9f9",
+                        "outline": "#7e7576",
+                        "on-secondary-fixed-variant": "#005235",
+                        "primary-fixed": "#e5e2e1",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "surface-dim": "#dadada"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "gutter": "20px",
+                        "sidebar-width": "240px",
+                        "margin": "24px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "h1": ["Inter"],
+                        "h3": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "h2": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "h3": ["18px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "h2": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .influencer-card:hover {
+            border-color: rgba(17, 17, 17, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-surface-canvas text-on-surface antialiased">
+<!-- SideNavBar -->
+<aside class="w-sidebar-width h-full fixed left-0 top-0 flex flex-col h-screen py-lg px-md bg-surface-canvas border-r border-border-subtle z-50">
+<div class="mb-xl px-sm">
+<h1 class="font-h2 text-h2 font-semibold text-charcoal">Verifier Admin</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Influencer Dashboard</p>
+</div>
+<nav class="flex-1 space-y-base">
+<a class="flex items-center gap-sm px-md py-sm rounded transition-colors duration-200 text-on-surface-variant hover:bg-surface-container-low hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="pending_actions">pending_actions</span>
+<span class="font-body-md text-body-md">Pending Approval</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm rounded transition-all bg-surface-container-lowest text-primary font-bold border-r-2 border-primary" href="#">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+<span class="font-body-md text-body-md">Approved</span>
+</a>
+</nav>
+</aside>
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-xl py-md ml-sidebar-width docked full-width top-0 sticky bg-surface-canvas border-b border-border-subtle z-40">
+<div class="flex items-center gap-lg">
+<h2 class="font-h2 text-h2 font-black text-charcoal">Follower Verification</h2>
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="w-full bg-surface-container-lowest border border-border-subtle rounded-lg py-1.5 pl-9 pr-md font-body-md text-body-md focus:border-charcoal focus:ring-0 transition-all" placeholder="Search influencers..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-charcoal transition-opacity" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-charcoal transition-opacity" data-icon="settings">settings</button>
+<div class="w-px h-6 bg-border-subtle mx-sm"></div>
+<img alt="Administrator Profile" class="w-9 h-9 rounded-full object-cover" data-alt="A high-quality close-up portrait of a male business professional in a light grey studio setting. The lighting is diffused and professional, creating a clean and authoritative mood. The visual style is minimalist and high-contrast, matching a premium corporate UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4uxrAU-jgT2ilYgnDSpcxdq2A6_QKO-ydtXzuXG9GGKxQlbfoBNeVp1S-Evm-KqzslLA_-cbsSJPprRiSs4nZ-lxD_DfYOZajus3hmFgtkhPGulkMVlu2u8DajkaVIKlDuIln1kQL24FjDKmlO1G2PubEyKqmvpbJHlIY80uSYLDm-Um3KxEKaNOQe6mfPwMWPNtIaodOvc5bwmqcHZp7eee_sgEv5v1VWV-w85javhcF_kx0jWap3GxQ4pm9WWcuz2zbaJV-RCRS"/>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-sidebar-width p-xl">
+<div class="max-w-6xl mx-auto">
+<div class="flex justify-between items-end mb-xl">
+<div>
+<h2 class="font-h1 text-h1 text-charcoal mb-xs">승인 완료 인플루언서</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">총 248명의 인플루언서가 시스템에 등록되어 관리 중입니다.</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs px-md py-sm bg-surface-container-lowest border border-border-subtle rounded-lg font-label-md text-label-md hover:border-charcoal transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                        필터
+                    </button>
+</div>
+</div>
+<!-- Influencer Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+<!-- Influencer Card 1 -->
+<div class="influencer-card bg-surface-container-lowest border border-border-subtle rounded-xl p-lg relative transition-all group">
+<div class="absolute top-lg right-lg px-sm py-xs border border-sage-green/30 bg-sage-green/5 text-sage-green rounded font-label-sm text-label-sm uppercase tracking-wider">
+                        Approved
+                    </div>
+<div class="flex items-start mb-lg">
+<div>
+<h3 class="font-h3 text-h3 text-charcoal">김지현 (Jenna Kim)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">jenna.style@email.com</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">ID: influencer_j_001</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-sm p-md bg-surface-canvas rounded-lg">
+<div class="space-y-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase"><a class="hover:underline cursor-pointer transition-all" href="https://instagram.com/" target="_blank">Instagram</a></span>
+<button class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-charcoal" data-icon="edit_square">edit_square</button>
+</div>
+<p class="font-h3 text-h3 text-charcoal">124K</p>
+</div>
+<div class="space-y-xs border-x border-border-subtle px-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase"><a class="hover:underline cursor-pointer transition-all" href="https://youtube.com/" target="_blank">YouTube</a></span>
+<button class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-charcoal" data-icon="edit_square">edit_square</button>
+</div>
+<p class="font-h3 text-h3 text-charcoal">45.2K</p>
+</div>
+<div class="space-y-xs pl-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase"><a class="hover:underline cursor-pointer transition-all" href="https://tiktok.com/" target="_blank">TikTok</a></span>
+<button class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-charcoal" data-icon="edit_square">edit_square</button>
+</div>
+<p class="font-h3 text-h3 text-charcoal">312K</p>
+</div>
+</div>
+<div class="mt-md flex justify-end gap-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="px-md py-1.5 border border-border-subtle rounded font-label-sm text-label-sm text-on-surface-variant hover:border-charcoal hover:text-charcoal">활동 로그</button>
+<button class="px-md py-1.5 bg-charcoal text-white rounded font-label-sm text-label-sm">상세 정보</button>
+</div>
+</div>
+<!-- Influencer Card 2 -->
+<div class="influencer-card bg-surface-container-lowest border border-border-subtle rounded-xl p-lg relative transition-all group">
+<div class="absolute top-lg right-lg px-sm py-xs border border-sage-green/30 bg-sage-green/5 text-sage-green rounded font-label-sm text-label-sm uppercase tracking-wider">
+                        Approved
+                    </div>
+<div class="flex items-start mb-lg">
+<div>
+<h3 class="font-h3 text-h3 text-charcoal">이민호 (Mark Lee)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">mark.tech@email.com</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">ID: m_tech_reviewer</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-sm p-md bg-surface-canvas rounded-lg">
+<div class="space-y-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase"><a class="hover:underline cursor-pointer transition-all" href="https://instagram.com/" target="_blank">Instagram</a></span>
+<button class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-charcoal" data-icon="edit_square">edit_square</button>
+</div>
+<p class="font-h3 text-h3 text-charcoal">89K</p>
+</div>
+<div class="space-y-xs border-x border-border-subtle px-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase"><a class="hover:underline cursor-pointer transition-all" href="https://youtube.com/" target="_blank">YouTube</a></span>
+<button class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-charcoal" data-icon="edit_square">edit_square</button>
+</div>
+<p class="font-h3 text-h3 text-charcoal">520K</p>
+</div>
+<div class="space-y-xs pl-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase"><a class="hover:underline cursor-pointer transition-all" href="https://tiktok.com/" target="_blank">TikTok</a></span>
+<button class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-charcoal" data-icon="edit_square">edit_square</button>
+</div>
+<p class="font-h3 text-h3 text-charcoal">12K</p>
+</div>
+</div>
+<div class="mt-md flex justify-end gap-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="px-md py-1.5 border border-border-subtle rounded font-label-sm text-label-sm text-on-surface-variant hover:border-charcoal hover:text-charcoal">활동 로그</button>
+<button class="px-md py-1.5 bg-charcoal text-white rounded font-label-sm text-label-sm">상세 정보</button>
+</div>
+</div>
+<!-- Influencer Card 3 (Editing Mode Mockup) -->
+<div class="influencer-card bg-surface-container-lowest border border-charcoal/20 rounded-xl p-lg relative transition-all shadow-sm">
+<div class="absolute top-lg right-lg px-sm py-xs border border-sage-green/30 bg-sage-green/5 text-sage-green rounded font-label-sm text-label-sm uppercase tracking-wider">
+                        Approved
+                    </div>
+<div class="flex items-start mb-lg">
+<div>
+<h3 class="font-h3 text-h3 text-charcoal">박소윤 (Sarah Park)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">sarah_vlog@email.com</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">ID: sarah_park_daily</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-sm p-md bg-surface-canvas rounded-lg">
+<div class="space-y-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-charcoal uppercase"><a class="hover:underline cursor-pointer transition-all" href="https://instagram.com/" target="_blank">Instagram</a></span>
+<button class="material-symbols-outlined text-[16px] text-sage-green" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</button>
+</div>
+<input class="w-full bg-white border border-charcoal rounded px-2 py-1 font-h3 text-h3 text-charcoal focus:ring-0" type="text" value="2.4M"/>
+</div>
+<div class="space-y-xs border-x border-border-subtle px-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase"><a class="hover:underline cursor-pointer transition-all" href="https://youtube.com/" target="_blank">YouTube</a></span>
+<button class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-charcoal" data-icon="edit_square">edit_square</button>
+</div>
+<p class="font-h3 text-h3 text-charcoal">1.1M</p>
+</div>
+<div class="space-y-xs pl-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase"><a class="hover:underline cursor-pointer transition-all" href="https://tiktok.com/" target="_blank">TikTok</a></span>
+<button class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-charcoal" data-icon="edit_square">edit_square</button>
+</div>
+<p class="font-h3 text-h3 text-charcoal">842K</p>
+</div>
+</div>
+<div class="mt-md flex justify-between items-center">
+<p class="text-[12px] text-status-amber flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="info">info</span>
+                            수정 중인 데이터가 있습니다
+                        </p>
+<div class="flex gap-sm">
+<button class="px-md py-1.5 border border-border-subtle rounded font-label-sm text-label-sm text-on-surface-variant hover:border-charcoal hover:text-charcoal">취소</button>
+<button class="px-md py-1.5 bg-sage-green text-white rounded font-label-sm text-label-sm">저장하기</button>
+</div>
+</div>
+</div>
+<!-- Influencer Card 4 -->
+<div class="influencer-card bg-surface-container-lowest border border-border-subtle rounded-xl p-lg relative transition-all group">
+<div class="absolute top-lg right-lg px-sm py-xs border border-sage-green/30 bg-sage-green/5 text-sage-green rounded font-label-sm text-label-sm uppercase tracking-wider">
+                        Approved
+                    </div>
+<div class="flex items-start mb-lg">
+<div>
+<h3 class="font-h3 text-h3 text-charcoal">최강호 (Strong Choi)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">choi.fit@email.com</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">ID: kangho_fitness</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-sm p-md bg-surface-canvas rounded-lg">
+<div class="space-y-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase"><a class="hover:underline cursor-pointer transition-all" href="https://instagram.com/" target="_blank">Instagram</a></span>
+<button class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-charcoal" data-icon="edit_square">edit_square</button>
+</div>
+<p class="font-h3 text-h3 text-charcoal">15.4K</p>
+</div>
+<div class="space-y-xs border-x border-border-subtle px-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase"><a class="hover:underline cursor-pointer transition-all" href="https://youtube.com/" target="_blank">YouTube</a></span>
+<button class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-charcoal" data-icon="edit_square">edit_square</button>
+</div>
+<p class="font-h3 text-h3 text-charcoal">2.1K</p>
+</div>
+<div class="space-y-xs pl-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase"><a class="hover:underline cursor-pointer transition-all" href="https://tiktok.com/" target="_blank">TikTok</a></span>
+<button class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-charcoal" data-icon="edit_square">edit_square</button>
+</div>
+<p class="font-h3 text-h3 text-charcoal">580</p>
+</div>
+</div>
+<div class="mt-md flex justify-end gap-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="px-md py-1.5 border border-border-subtle rounded font-label-sm text-label-sm text-on-surface-variant hover:border-charcoal hover:text-charcoal">활동 로그</button>
+<button class="px-md py-1.5 bg-charcoal text-white rounded font-label-sm text-label-sm">상세 정보</button>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-xl flex items-center justify-between pt-lg border-t border-border-subtle">
+<p class="font-body-md text-body-md text-on-surface-variant">Showing 4 of 248 influencers</p>
+<div class="flex gap-base">
+<button class="w-10 h-10 flex items-center justify-center rounded border border-border-subtle hover:border-charcoal transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded bg-charcoal text-white font-label-md">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded border border-border-subtle hover:bg-surface-container-low font-label-md">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded border border-border-subtle hover:bg-surface-container-low font-label-md">3</button>
+<span class="w-10 h-10 flex items-center justify-center text-on-surface-variant">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded border border-border-subtle hover:bg-surface-container-low font-label-md">62</button>
+<button class="w-10 h-10 flex items-center justify-center rounded border border-border-subtle hover:border-charcoal transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>
