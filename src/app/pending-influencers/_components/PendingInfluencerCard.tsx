@@ -55,9 +55,9 @@ function FollowerInput({
 }: FollowerInputProps) {
   const positionClass =
     position === "middle"
-      ? "border-x border-border-subtle px-sm"
+      ? "md:border-x md:border-border-subtle md:px-sm"
       : position === "last"
-        ? "pl-sm"
+        ? "md:pl-sm"
         : "";
 
   return (
@@ -154,7 +154,7 @@ export default function PendingInfluencerCard({
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-sm rounded-lg bg-surface-canvas p-md">
+        <div className="grid grid-cols-1 gap-md rounded-lg bg-surface-canvas p-md md:grid-cols-3 md:gap-sm">
           {activeChannels.map((channel, idx) => (
             <FollowerInput
               key={channel}
@@ -174,7 +174,7 @@ export default function PendingInfluencerCard({
         </div>
       )}
 
-      <div className="mt-md flex items-center justify-between">
+      <div className="mt-md flex flex-col gap-sm md:flex-row md:items-center md:justify-between">
         <p className="text-label-sm text-on-surface-variant">
           {activeChannels.length === 0
             ? "승인 불가"

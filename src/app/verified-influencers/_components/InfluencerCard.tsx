@@ -44,9 +44,9 @@ function StatCell({
 }: StatCellProps) {
   const positionClass =
     position === "middle"
-      ? "border-x border-border-subtle px-sm"
+      ? "md:border-x md:border-border-subtle md:px-sm"
       : position === "last"
-        ? "pl-sm"
+        ? "md:pl-sm"
         : "";
 
   return (
@@ -211,7 +211,7 @@ export default function InfluencerCard({
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-sm rounded-lg bg-surface-canvas p-md">
+      <div className="grid grid-cols-1 gap-md rounded-lg bg-surface-canvas p-md md:grid-cols-3 md:gap-sm">
         {channels.map((channel, idx) => (
           <StatCell
             key={channel}
@@ -233,12 +233,12 @@ export default function InfluencerCard({
       </div>
 
       {isEditing ? (
-        <div className="mt-md flex items-center justify-between">
+        <div className="mt-md flex flex-col gap-sm md:flex-row md:items-center md:justify-between">
           <p className="flex items-center gap-1 text-[12px] text-status-amber">
             <MaterialIcon name="info" className="text-[14px]" />
             수정 중인 데이터가 있습니다
           </p>
-          <div className="flex gap-sm">
+          <div className="flex gap-sm self-end">
             <button
               type="button"
               onClick={handleCancel}
@@ -258,7 +258,7 @@ export default function InfluencerCard({
           </div>
         </div>
       ) : (
-        <div className="mt-md flex justify-end gap-sm opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+        <div className="mt-md flex justify-end gap-sm transition-opacity md:opacity-0 md:group-hover:opacity-100 md:focus-within:opacity-100">
           <button
             type="button"
             onClick={handleRevoke}
