@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
+import { sendApprovalEmail } from "@/lib/email";
 import type {
   FollowerCounts,
   Influencer,
@@ -178,17 +179,35 @@ export async function approveInfluencer(
   id: string,
   followers: FollowerCounts,
 ): Promise<void> {
+  const supabase = getSupabaseAdmin();
+
+  const { data: lead, error: selectError } = await supabase
+    .from("creator_leads")
+    .select("email, name")
+    .eq("id", id)
+    .single();
+
+  if (selectError) throw new Error(`approveInfluencer: ${selectError.message}`);
+
   const updates: Record<string, number | null | boolean> = {
     ...buildFollowerUpdates(followers),
     is_approved: true,
   };
 
-  const { error } = await getSupabaseAdmin()
+  const { error } = await supabase
     .from("creator_leads")
     .update(updates)
     .eq("id", id);
 
   if (error) throw new Error(`approveInfluencer: ${error.message}`);
+
+  try {
+    const name = lead.name?.trim() || lead.email;
+    await sendApprovalEmail(lead.email, name);
+  } catch (e) {
+    console.error("Failed to send approval email:", e);
+  }
+
   revalidatePath("/pending-influencers");
   revalidatePath("/verified-influencers");
 }
