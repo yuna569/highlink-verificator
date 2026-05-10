@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import MaterialIcon from "./MaterialIcon";
+import { logout } from "@/app/actions/auth";
 
 type NavItem = {
   href: string;
@@ -70,6 +71,15 @@ export default function SideNav({ activeHref, isOpen, onClose }: SideNavProps) {
             );
           })}
         </nav>
+        <form action={logout}>
+          <button
+            type="submit"
+            className="flex w-full items-center gap-sm rounded px-md py-sm text-on-surface-variant transition-all hover:bg-surface-container-low hover:text-status-red"
+          >
+            <MaterialIcon name="logout" />
+            <span className="text-body-md">로그아웃</span>
+          </button>
+        </form>
       </aside>
     </>
   );
