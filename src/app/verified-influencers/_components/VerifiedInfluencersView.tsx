@@ -86,7 +86,7 @@ export default function VerifiedInfluencersView({
   const isSearching = searchQuery.length > 0;
 
   return (
-    <AppShell activeHref="/verified-influencers" title="Follower Verification">
+    <AppShell activeHref="/verified-influencers" title="Approved">
       <div className="mx-auto max-w-6xl">
         <div className="mb-xl flex flex-col gap-md md:flex-row md:items-end md:justify-between">
           <div>
