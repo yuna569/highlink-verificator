@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import MaterialIcon from "@/components/MaterialIcon";
 import { formatFollowerCount } from "@/lib/format";
@@ -13,6 +14,12 @@ const CHANNEL_LABEL: Record<SocialChannel, string> = {
   instagram: "Instagram",
   youtube: "YouTube",
   tiktok: "TikTok",
+};
+
+const CHANNEL_ICON: Record<SocialChannel, string> = {
+  instagram: "/instagram.png",
+  youtube: "/youtube.png",
+  tiktok: "/tiktok.png",
 };
 
 const CHANNEL_URL: Record<SocialChannel, string> = {
@@ -52,20 +59,30 @@ function StatCell({
   return (
     <div className={`space-y-xs ${positionClass}`}>
       <div className="flex items-center justify-between">
-        <span
-          className={`text-label-sm uppercase ${
-            isEditing ? "text-charcoal" : "text-on-surface-variant"
-          }`}
-        >
-          <a
-            href={CHANNEL_URL[channel]}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cursor-pointer transition-all hover:underline"
+        <div className="flex min-w-0 items-center gap-sm">
+          <Image
+            src={CHANNEL_ICON[channel]}
+            alt=""
+            width={22}
+            height={22}
+            className="h-[22px] w-[22px] rounded"
+            unoptimized
+          />
+          <span
+            className={`min-w-0 text-label-sm ${
+              isEditing ? "text-charcoal" : "text-on-surface-variant"
+            }`}
           >
-            {CHANNEL_LABEL[channel]}
-          </a>
-        </span>
+            <a
+              href={CHANNEL_URL[channel]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block truncate transition-all hover:underline"
+            >
+              {CHANNEL_LABEL[channel]}
+            </a>
+          </span>
+        </div>
         {isEditing ? (
           <MaterialIcon
             name="check_circle"

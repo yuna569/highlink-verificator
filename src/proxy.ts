@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
 const PUBLIC_PATHS = ["/login"];
+const PUBLIC_ASSET_PATTERN = /\.(?:png|jpg|jpeg|gif|webp|svg|ico)$/i;
 const COOKIE_NAME = "session";
 
 function getSecret() {
@@ -13,7 +14,9 @@ function getSecret() {
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const isPublic = PUBLIC_PATHS.some((p) => pathname.startsWith(p));
+  const isPublic =
+    PUBLIC_PATHS.some((p) => pathname.startsWith(p)) ||
+    PUBLIC_ASSET_PATTERN.test(pathname);
 
   const token = request.cookies.get(COOKIE_NAME)?.value;
   let authenticated = false;
@@ -44,6 +47,6 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico)$).*)",
   ],
 };

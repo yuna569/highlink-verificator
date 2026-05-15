@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useActionState } from "react";
 import { login } from "@/app/actions/auth";
 
@@ -8,12 +9,28 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-surface-canvas p-[24px]">
-      <div className="w-full max-w-[360px] rounded-xl border border-border-subtle bg-surface-container-lowest p-[32px]">
-        <h1 className="text-[24px] font-semibold leading-[32px] text-charcoal mb-[24px]">로그인</h1>
+      <div className="w-full max-w-[380px] rounded-lg border border-border-subtle bg-surface-container-lowest p-[32px] shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+        <div className="mb-[28px] flex items-center gap-[10px]">
+          <Image
+            src="/highlink_black.png"
+            alt="Highlink"
+            width={150}
+            height={40}
+            className="h-9 w-auto object-contain"
+            priority
+            unoptimized
+          />
+        </div>
+        <h1 className="mb-[24px] text-[24px] font-semibold leading-[32px] text-charcoal">
+          운영자 로그인
+        </h1>
 
         <form action={action} className="flex flex-col gap-[16px]">
           <div className="flex flex-col gap-[4px]">
-            <label htmlFor="username" className="text-[14px] font-medium leading-[20px] text-on-surface-variant">
+            <label
+              htmlFor="username"
+              className="text-[14px] font-medium leading-[20px] text-on-surface-variant"
+            >
               아이디
             </label>
             <input
@@ -27,7 +44,10 @@ export default function LoginPage() {
           </div>
 
           <div className="flex flex-col gap-[4px]">
-            <label htmlFor="password" className="text-[14px] font-medium leading-[20px] text-on-surface-variant">
+            <label
+              htmlFor="password"
+              className="text-[14px] font-medium leading-[20px] text-on-surface-variant"
+            >
               비밀번호
             </label>
             <input

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import SideNav from "./SideNav";
-import TopAppBar from "./TopAppBar";
+
 
 type AppShellProps = {
   activeHref: string;
@@ -24,8 +24,9 @@ export default function AppShell({
         isOpen={sideNavOpen}
         onClose={() => setSideNavOpen(false)}
       />
-      <TopAppBar title={title} onMenuClick={() => setSideNavOpen(true)} />
-      <main className="p-md md:ml-sidebar-width md:p-xl">{children}</main>
+      <main className="px-md py-lg md:ml-sidebar-width md:px-xl md:py-lg">
+        {children}
+      </main>
     </div>
   );
 }

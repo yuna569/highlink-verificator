@@ -11,10 +11,10 @@ type SearchBarProps = {
 export default function SearchBar({
   value,
   onChange,
-  placeholder = "Search influencers...",
+  placeholder = "이름 또는 이메일 검색",
 }: SearchBarProps) {
   return (
-    <div className="relative w-full md:w-64">
+    <div className="relative w-full md:w-80">
       <span className="pointer-events-none absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">
         <MaterialIcon name="search" className="text-[18px]" />
       </span>
@@ -23,7 +23,7 @@ export default function SearchBar({
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="text-body-md w-full rounded-lg border border-border-subtle bg-surface-container-lowest py-1.5 pl-9 pr-md transition-all focus:border-charcoal focus:outline-none focus:ring-0"
+        className="text-body-md h-10 w-full rounded-lg border border-border-subtle bg-surface-container-lowest py-1.5 pl-9 pr-md text-charcoal transition-all placeholder:text-on-surface-variant focus:border-charcoal focus:outline-none focus:ring-0"
       />
       {value && (
         <button

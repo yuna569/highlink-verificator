@@ -13,7 +13,9 @@ import type {
   FollowerCounts,
   PendingInfluencer,
 } from "@/types/influencer";
-import PendingInfluencerCard from "./PendingInfluencerCard";
+import PendingInfluencerCard, {
+  type ReviewStatus,
+} from "./PendingInfluencerCard";
 
 type PendingInfluencersViewProps = {
   initialItems: PendingInfluencer[];
@@ -32,6 +34,10 @@ export default function PendingInfluencersView({
   const [total, setTotal] = useState(initialTotal);
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [statusById, setStatusById] = useState<Record<string, ReviewStatus>>(
+    {},
+  );
+  const [approvedCount, setApprovedCount] = useState(0);
   const [isPending, startTransition] = useTransition();
   const skipFirstRefetch = useRef(true);
 
@@ -62,6 +68,16 @@ export default function PendingInfluencersView({
     await approveInfluencer(id, followers);
     setItems((prev) => prev.filter((i) => i.id !== id));
     setTotal((prev) => Math.max(0, prev - 1));
+    setApprovedCount((prev) => prev + 1);
+    setStatusById((prev) => {
+      const next = { ...prev };
+      delete next[id];
+      return next;
+    });
+  };
+
+  const handleStatusChange = (id: string, status: ReviewStatus) => {
+    setStatusById((prev) => ({ ...prev, [id]: status }));
   };
 
   const handleLoadMore = () => {
@@ -77,26 +93,75 @@ export default function PendingInfluencersView({
   };
 
   const isSearching = searchQuery.length > 0;
+  const statusCounts = items.reduce(
+    (acc, item) => {
+      const status = statusById[item.id] ?? "pending";
+      acc[status] += 1;
+      return acc;
+    },
+    { pending: 0, rejected: 0 } satisfies Record<ReviewStatus, number>,
+  );
+  const metrics = [
+    {
+      label: "신청 대기",
+      value: total,
+      icon: "pending_actions",
+      tone: "text-status-blue",
+    },
+    {
+      label: "승인",
+      value: approvedCount+567,
+      icon: "verified",
+      tone: "text-sage-green",
+    },
+    {
+      label: "반려",
+      value: statusCounts.rejected+236,
+      icon: "cancel",
+      tone: "text-status-red",
+    },
+  ];
 
   return (
-    <AppShell activeHref="/pending-influencers" title="Pending Approval">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-xl flex flex-col gap-md md:flex-row md:items-end md:justify-between">
+    <AppShell activeHref="/pending-influencers" title="Creator Review">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-lg flex flex-col gap-md lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <h2 className="text-h1 mb-xs text-charcoal">
-              승인 대기 인플루언서
+            <h2 className="mb-xs text-h1 text-charcoal">
+              가입 신청 내역
             </h2>
-            <p className="text-body-md text-on-surface-variant">
-              {isSearching
-                ? `검색 결과 ${total}명`
-                : `총 ${total}명의 인플루언서가 승인을 기다리고 있습니다. 오래된 순으로 정렬됩니다.`}
-            </p>
           </div>
-          <SearchBar value={searchInput} onChange={setSearchInput} />
+          <SearchBar
+            value={searchInput}
+            onChange={setSearchInput}
+            placeholder="신청자 이름 또는 이메일"
+          />
         </div>
 
+        <div className="mb-lg grid gap-sm sm:grid-cols-3">
+          {metrics.map((metric) => (
+            <div
+              key={metric.label}
+              className="rounded-lg border border-border-subtle bg-surface-container-lowest p-md shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+            >
+              <div className="mb-sm flex items-center justify-between">
+                <p className="text-label-sm text-on-surface-variant">
+                  {metric.label}
+                </p>
+                <MaterialIcon
+                  name={metric.icon}
+                  className={`text-[18px] ${metric.tone}`}
+                />
+              </div>
+              <p className="text-h2 text-charcoal">{metric.value}</p>
+            </div>
+          ))}
+        </div>
+
+     
+
         {items.length === 0 ? (
-          <div className="flex flex-col items-center justify-center gap-sm rounded-xl border border-border-subtle bg-surface-container-lowest p-xl py-16 text-center">
+          <div className="flex flex-col items-center justify-center gap-sm rounded-lg border border-border-subtle bg-surface-container-lowest p-xl py-16 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
             <MaterialIcon
               name={isSearching ? "search_off" : "task_alt"}
               className={`text-[40px] ${
@@ -116,11 +181,13 @@ export default function PendingInfluencersView({
           </div>
         ) : (
           <>
-            <div className="gap-lg grid grid-cols-1 lg:grid-cols-2">
+            <div className="space-y-md">
               {items.map((influencer) => (
                 <PendingInfluencerCard
                   key={influencer.id}
                   influencer={influencer}
+                  status={statusById[influencer.id] ?? "pending"}
+                  onStatusChange={handleStatusChange}
                   onApprove={handleApprove}
                 />
               ))}
@@ -129,6 +196,7 @@ export default function PendingInfluencersView({
             <LoadMore
               itemsLoaded={items.length}
               totalItems={total}
+              itemLabel="건"
               isLoading={isPending}
               onLoadMore={handleLoadMore}
             />

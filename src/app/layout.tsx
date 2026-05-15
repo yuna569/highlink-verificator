@@ -9,8 +9,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Verifier Admin",
-  description: "Influencer Dashboard",
+  title: "Highlink Creator Review",
+  description: "Highlink creator approval operations console",
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
