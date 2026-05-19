@@ -202,8 +202,7 @@ export async function approveInfluencer(
   if (error) throw new Error(`approveInfluencer: ${error.message}`);
 
   try {
-    const name = lead.name?.trim() || lead.email;
-    await sendApprovalEmail(lead.email, name);
+    await sendApprovalEmail(lead.email);
   } catch (e) {
     console.error("Failed to send approval email:", e);
   }
