@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { sendApprovalEmail } from "@/lib/email";
+import { createSignupInvite } from "@/lib/invite";
 import type {
   FollowerCounts,
   Influencer,
@@ -202,7 +203,8 @@ export async function approveInfluencer(
   if (error) throw new Error(`approveInfluencer: ${error.message}`);
 
   try {
-    await sendApprovalEmail(lead.email);
+    const invite = await createSignupInvite(id, "creator");
+    await sendApprovalEmail(lead.email, invite.code);
   } catch (e) {
     console.error("Failed to send approval email:", e);
   }

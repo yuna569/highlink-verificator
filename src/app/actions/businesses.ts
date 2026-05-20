@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { sendBusinessApprovalEmail } from "@/lib/email";
+import { createSignupInvite } from "@/lib/invite";
 import type {
   Business,
   PageQuery,
@@ -120,7 +121,8 @@ export async function approveBusiness(id: string): Promise<void> {
   if (error) throw new Error(`approveBusiness: ${error.message}`);
 
   try {
-    await sendBusinessApprovalEmail(lead.email);
+    const invite = await createSignupInvite(id, "business");
+    await sendBusinessApprovalEmail(lead.email, invite.code);
   } catch (e) {
     console.error("Failed to send business approval email:", e);
   }

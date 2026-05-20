@@ -3,15 +3,14 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const FROM_ADDRESS = "noreply@mail.highlink.asia";
+const SIGNUP_BASE_URL = "https://highlink.asia/signup";
 
-// TODO: Replace with actual sign-up/login page URL
-const CTA_URL = "https://highlink.asia/register";
-
-export async function sendBusinessApprovalEmail(to: string): Promise<void> {
+export async function sendBusinessApprovalEmail(to: string, code: string): Promise<void> {
+  const ctaUrl = `${SIGNUP_BASE_URL}?code=${code}`;
   await resend.emails.send({
     from: FROM_ADDRESS,
     to,
-    subject: "[HighLink] 사업자님을 위한 크리에이터 선별 과정을 안내해드립니다",
+    subject: "[HighLink] 사업자님을 위한 크리에이터 모집을 시작하였습니다!",
     html: `
 <!DOCTYPE html>
 <html lang="ko">
@@ -44,16 +43,13 @@ export async function sendBusinessApprovalEmail(to: string): Promise<void> {
               <p style="margin:0 0 24px;">HighLink 파트너십 매니저 김영준입니다.</p>
 
               <p style="margin:0 0 24px;">
-                현재 사업자님께서 요청해 주신 카테고리를 기준으로 크리에이터 선정을 완료하였으며, 회원가입 후 바로 확인하실 수 있습니다.
+                현재 대표님께서 요청해 주신 정보를 바탕으로 크리에이터 선정을 완료하였습니다. 해당 크리에이터 리스트는 아래 버튼을 통해 확인하실 수 있습니다.
               </p>
 
-              <p style="margin:0 0 24px;color:#444444;">
-                다만 현재 전달받은 정보가 제한적인 관계로, 사업자님의 상품과 가장 적합한 크리에이터를 선별하는 과정에서 일부 제한이 있었습니다.<br>
-                보다 높은 적합도의 크리에이터 매칭을 원하시는 경우, 홈페이지를 통해 재선별을 요청해 주시면 추가 검토를 통해 더욱 적합한 크리에이터로 신속하게 재선정해드리겠습니다.
-              </p>
+             
 
               <p style="margin:0 0 24px;">
-                앞으로도 사업자님의 브랜드 성장과 성과 향상을 위해 최선을 다하겠습니다.
+                앞으로 대표님의 브랜드 성장과 성과 향상을 위해 최선을 다하겠습니다.
               </p>
 
               
@@ -62,14 +58,15 @@ export async function sendBusinessApprovalEmail(to: string): Promise<void> {
               <p style="margin:0;">HighLink 파트너십 매니저 김영준 드림</p>
               
               <br>
+              <br>
 
               <!-- CTA 버튼 -->
               <table style="margin:8px auto 32px;" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td style="border-radius:8px;background:linear-gradient(90deg,#8A4DFF 0%,#4C7CFF 55%,#22B8F5 100%);" align="center">
-                    <a href="${CTA_URL}" target="_blank"
+                    <a href="${ctaUrl}" target="_blank"
                       style="display:inline-block;padding:15px 36px;font-size:15px;font-weight:bold;color:#ffffff;text-decoration:none;border-radius:8px;letter-spacing:-0.2px;">
-                      크리에이터 선별하기
+                      크리에이터 확인하기
                     </a>
                   </td>
                 </tr>
@@ -95,7 +92,8 @@ export async function sendBusinessApprovalEmail(to: string): Promise<void> {
   });
 }
 
-export async function sendApprovalEmail(to: string): Promise<void> {
+export async function sendApprovalEmail(to: string, code: string): Promise<void> {
+  const ctaUrl = `${SIGNUP_BASE_URL}?code=${code}`;
   await resend.emails.send({
     from: FROM_ADDRESS,
     to,
@@ -138,31 +136,28 @@ export async function sendApprovalEmail(to: string): Promise<void> {
 
               
               <p style="margin:0 0 24px;color:#444444;">
-                크리에이터님을 위한 협찬 정보를 제공해드리기 위해서, 회원가입을 완료해주시길 바랍니다.
-회원가입 직후 포트폴리오를 완성해 주시면, 사업자분들께 크리에이터님을 추천해 드리겠습니다. 
-
-아래 버튼을 눌러 간단한 회원가입 진행 후 포트폴리오를 완성해주시면
-크리에이터님을 위한 최고의 협찬을 제공해드릴 수 있도록 하겠습니다.
+                아래 버튼을 통해 회원가입을 완료해 주시면 크리에이터님을 위한 최적의 협찬 정보를 제공해 드리겠습니다.
               </p>
 
+              
+
+              <p style="margin:0 0 4px;">감사합니다.</p>
+              <p style="margin:0;">HighLink 파트너십 매니저 김영준 드림</p>
+
+              <br>
               <br>
 
               <!-- CTA 버튼 -->
               <table style="margin:8px auto 32px;" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td style="border-radius:8px;background:linear-gradient(90deg,#8A4DFF 0%,#4C7CFF 55%,#22B8F5 100%);" align="center">
-                    <a href="${CTA_URL}" target="_blank"
+                    <a href="${ctaUrl}" target="_blank"
                       style="display:inline-block;padding:15px 36px;font-size:15px;font-weight:bold;color:#ffffff;text-decoration:none;border-radius:8px;letter-spacing:-0.2px;">
-                      추가 정보 입력
+                      매칭 시작하기
                     </a>
                   </td>
                 </tr>
               </table>
-
-              <br>
-
-              <p style="margin:0 0 4px;">감사합니다.</p>
-              <p style="margin:0;">HighLink 파트너십 매니저 김영준 드림</p>
 
             </td>
           </tr>
